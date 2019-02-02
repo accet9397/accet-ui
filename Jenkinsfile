@@ -1,17 +1,17 @@
 def config
     
-node ('docker-maven-slave') {
+node () {
     stage ('Source code checkout') {
 	    // git credentialsId: 'StationSoftwareGithub', url: 'https://github.com/StationSoftware/apistation.git'
 	    checkout scm
 	    config = readYaml file: "JenkinsConfig.yaml"
-	    currentBuild.displayName = readMavenPom(file: WORKSPACE + '/pom.xml').getVersion().toString().split('-').first() + BUILD_DISPLAY_NAME
+	    // currentBuild.displayName = readMavenPom(file: WORKSPACE + '/pom.xml').getVersion().toString().split('-').first() + BUILD_DISPLAY_NAME
 	    
-	    stash name: 'source',
-	    	  includes: 'src/**, Dockerfile, pom.xml'
+	    // stash name: 'source',
+	    // 	  includes: 'src/**, Dockerfile, pom.xml'
     }
 }
-
+/*
 parallel 'Continuous Integration': {
     node ('docker-maven-slave') {
         stage ('Deployment build') {
@@ -249,3 +249,4 @@ def notify(status){
 				</body>"""
 	)
 }
+*/
