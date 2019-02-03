@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/accet9397/accet-ui.svg?branch=develop)](https://travis-ci.com/accet9397/accet-ui)
 # AccetUi
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
