@@ -7,8 +7,8 @@ node () {
 	    config = readYaml file: "JenkinsConfig.yaml"
 	    // currentBuild.displayName = readMavenPom(file: WORKSPACE + '/pom.xml').getVersion().toString().split('-').first() + BUILD_DISPLAY_NAME
 	    
-	    // stash name: 'source',
-	    // 	  includes: 'src/**, Dockerfile, pom.xml'
+	    stash name: 'source',
+	    	  includes: 'src/**, e2e/**, package.json, package-lock.json, tsconfig.json, angular.json'
     }
 }
 /*
