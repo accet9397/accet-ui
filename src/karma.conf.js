@@ -27,12 +27,12 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['firefox', 'Chrome', 'ChromeHeadless', 'ChromeHeadlessNoSandbox'],
     // you can define custom flags
-    customLaunchers: {
-      ChromeHeadlessNoSandbox: {
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
-      }
-    },
+    // customLaunchers: {
+    //   ChromeHeadlessNoSandbox: {
+    //     base: 'ChromeHeadless',
+    //     flags: ['--no-sandbox']
+    //   }
+    // },
     singleRun: false
   });
 };
