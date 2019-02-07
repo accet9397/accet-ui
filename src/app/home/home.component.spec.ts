@@ -28,4 +28,11 @@ describe('HomeComponent', () => {
   it('should create the home component', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render welcome message', () => {
+    fixture = TestBed.createComponent(HomeComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('mat-toolbar').textContent).toContain('Welcome User');
+  });
 });
