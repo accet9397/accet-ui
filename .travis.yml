@@ -10,6 +10,6 @@ before_deploy: "echo 'ready?'"
 deploy:
   provider: firebase
   token:
-    secure: "1/27a-I2PH5G8qEJm80ig0RXV02aq45DtNfrvSPgRi6kn8dV9nnC9QIxBCtW0cAsk1"
+    secure: $FIREBASE_TOKEN
   project: "accet97-dev"
   message: "deployment to dev environment"
