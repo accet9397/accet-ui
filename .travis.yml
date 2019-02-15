@@ -3,9 +3,9 @@ node_js:
 - "10.15.1"
 addons:
   chrome: stable
-branches:
-  only:
-    - develop
+# branches:
+#   only:
+#     - develop
 before_script:
   - npm install -g @angular/cli
 script:
@@ -17,6 +17,7 @@ before_install:
 before_deploy: "echo 'ready?'"
 deploy:
   skip_cleanup: true
+  branch: develop
   provider: firebase
   token:
     secure: $FIREBASE_TOKEN
