@@ -3,11 +3,20 @@ node_js:
 - "10.15.1"
 addons:
   chrome: stable
+branches:
+  only:
+    - develop
+before_script:
+  - npm install -g @angular/cli
+script:
+  - npm install
+  - ng build --prod
 before_install:
   - # start your web application and listen on `localhost`
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 before_deploy: "echo 'ready?'"
 deploy:
+  skip_cleanup: true
   provider: firebase
   token:
     secure: $FIREBASE_TOKEN
