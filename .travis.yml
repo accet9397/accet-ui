@@ -21,11 +21,11 @@ deploy:
       branch: develop
     project: "accet97-dev"
     message: "deployment to dev environment"
-  - provider: firebase
-      skip_cleanup: true
-    token:
-      secure: $FIREBASE_TOKEN
-    on:
-      branch: master
-    project: "accet97-stage"
-    message: "deployment to stage environment"
+  # - provider: firebase
+  #     skip_cleanup: true
+  #   token:
+  #     secure: $FIREBASE_TOKEN
+  #   on:
+  #     branch: master
+  #   project: "accet97-stage"
+  #   message: "deployment to stage environment"
