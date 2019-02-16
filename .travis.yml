@@ -14,10 +14,17 @@ before_install:
 before_deploy: "echo 'ready?'"
 deploy:
   skip_cleanup: true
-  on:
-    branch: develop
-  provider: firebase
   token:
     secure: $FIREBASE_TOKEN
-  project: "accet97-dev"
-  message: "deployment to dev environment"
+
+  - provider: firebase
+    on:
+      branch: develop
+    project: "accet97-dev"
+    message: "deployment to dev environment"
+
+  - provider: firebase
+    on:
+      branch: master
+    project: "accet97-stage"
+    message: "deployment to stage environment"
