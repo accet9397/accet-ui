@@ -5,9 +5,6 @@ addons:
   chrome: stable
 before_script:
   - npm install -g @angular/cli
-script:
-  - npm install
-  - ng build --prod
 before_install:
   - # start your web application and listen on `localhost`
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
@@ -15,6 +12,9 @@ before_deploy: "echo 'ready?'"
 deploy:
   - provider: firebase
     skip_cleanup: true
+    script:
+      - npm install
+      - ng build --prod
     token:
       secure: $FIREBASE_TOKEN
     on:
@@ -23,6 +23,9 @@ deploy:
     message: "deployment to dev environment"
   - provider: firebase
     skip_cleanup: true
+    script:
+      - npm install
+      - ng build --prod
     token:
       secure: $FIREBASE_TOKEN
     on:
