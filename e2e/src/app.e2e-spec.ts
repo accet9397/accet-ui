@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to ACCET - Class of 1997');
+    expect(page.getTitleText()).toEqual('Welcome User');
   });
 
   afterEach(async () => {

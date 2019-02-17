@@ -11,6 +11,7 @@ before_script:
 script:
   - npm install
   - ng test
+  - ng e2e
   - ng build --prod
 before_deploy: "echo 'ready?'"
 deploy:
