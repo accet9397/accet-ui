@@ -1,3 +1,4 @@
+codecov: true
 sudo: required
 dist: trusty
 addons:
