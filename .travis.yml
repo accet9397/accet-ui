@@ -17,7 +17,6 @@ before_script:
   - sh -e /etc/init.d/xvfb start
 script:
   - npm run test:ci
-  - codecov
   - sonar-scanner
   - ng build --prod
 before_deploy: "echo 'ready?'"
