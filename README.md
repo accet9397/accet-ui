@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/accet9397/accet-ui.svg?branch=develop)](https://travis-ci.org/accet9397/accet-ui)[![codecov](https://codecov.io/gh/accet9397/accet-ui/branch/develop/graph/badge.svg)](https://codecov.io/gh/accet9397/accet-ui)
+[![Build Status](https://travis-ci.org/accet9397/accet-ui.svg?branch=develop)](https://travis-ci.org/accet9397/accet-ui)[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=accet9397_accet-ui)](https://sonarcloud.io/dashboard/index/accet9397_accet-ui)[![codecov](https://codecov.io/gh/accet9397/accet-ui/branch/develop/graph/badge.svg)](https://codecov.io/gh/accet9397/accet-ui)
 # AccetUi
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
