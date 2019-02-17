@@ -2,6 +2,10 @@ sudo: required
 dist: trusty
 addons:
   chrome: stable
+  sonarcloud:
+    organization: "accet9397"
+    token:
+      secure: $SONARCLOUD_TOKEN
 language: node_js
 node_js:
 - "10.15.1"
@@ -12,6 +16,7 @@ before_script:
   - sh -e /etc/init.d/xvfb start
 script:
   - npm run test:ci
+  - sonar-scanner
   - ng build --prod
 before_deploy: "echo 'ready?'"
 deploy:
