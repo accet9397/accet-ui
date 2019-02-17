@@ -1,16 +1,17 @@
+sudo: required
+dist: trusty
+addons:
+  chrome: stable
 language: node_js
 node_js:
 - "10.15.1"
-addons:
-  chrome: stable
-before_install:
-  - # start your web application and listen on `localhost`
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
-before_script:
-  - npm install -g @angular/cli
-script:
+install:
   - npm install
-  - ng test
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+script:
+  - npm run test:ci
   - ng build --prod
 before_deploy: "echo 'ready?'"
 deploy:
