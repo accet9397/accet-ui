@@ -17,7 +17,7 @@ before_script:
 script:
   - npm run test:ci
   - sonar-scanner
-  - ng build --configuration=production
+  - ng build --configuration=development
 before_deploy: "echo 'ready?'"
 deploy:
   - provider: firebase
