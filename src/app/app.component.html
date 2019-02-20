@@ -1,1 +1,21 @@
-<router-outlet></router-outlet>
+<div class=wrapper>
+  <mat-toolbar color="primary" class=header>
+    <button mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class=title-spacer>
+      {{componentTitle}}
+    </span>
+    <button mat-icon-button>
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-sidenav-container class=content>
+    <mat-sidenav>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
