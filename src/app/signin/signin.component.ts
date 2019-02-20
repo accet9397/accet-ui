@@ -17,7 +17,7 @@ export class SigninComponent implements OnInit {
     console.log('successCallback', data);
   }
 
-  errorCallBack(data: any) {
+  errorCallback(data: any) {
 
   }
 
