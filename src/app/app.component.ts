@@ -16,6 +16,8 @@ export class AppComponent implements OnInit, OnDestroy {
   routeSub: Subscription;
   showMenu = false;
   currentUrl: string;
+  redirect: string;
+  routeComp: string[];
 
   constructor(private afAuth: AngularFireAuth, private router: Router) {
     this.user = afAuth.authState;
@@ -38,14 +40,14 @@ export class AppComponent implements OnInit, OnDestroy {
     sessionStorage.setItem ('currentUser', JSON.stringify(appUser));
     // Get the redirect URL from sessionStorage
     // If no redirect has been set, use the default
-    let redirect = sessionStorage.getItem('redirectUrl');
+    this.redirect = sessionStorage.getItem('redirectUrl');
     // Redirect the user
-    router.navigate([redirect ? redirect : ''], { skipLocationChange: true });
+    router.navigate([this.redirect ? this.redirect : ''], { skipLocationChange: true });
   }
 
   setComponentTitle(route: string): void {
-    let routeComp = route.split(';', 2);
-    switch (routeComp[0]) {
+    this.routeComp = route.split(';', 2);
+    switch (this.routeComp[0]) {
       case '/signin': {
           this.componentTitle = 'ACCET 93-97';
           break;
@@ -90,8 +92,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userSub.unsubscribe;
-    this.routeSub.unsubscribe;
+    this.userSub.unsubscribe && this.userSub.unsubscribe();
+    this.routeSub.unsubscribe && this.routeSub.unsubscribe();
   }
 
   signout(): void {
