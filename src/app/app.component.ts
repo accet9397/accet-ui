@@ -15,27 +15,20 @@ export class AppComponent implements OnInit, OnDestroy {
   userSub: Subscription;
   routeSub: Subscription;
   showMenu = false;
-  currentUrl: string;
   redirect: string;
   routeComp: string[];
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {
-    this.user = afAuth.authState;
-    this.userSub = this.user.subscribe(appUser => this.authChangeListener(appUser, router));
-    this.routeSub = this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd ) {
-        this.currentUrl = this.router.url;
-        this.setComponentTitle(this.currentUrl);
-      }
-    });
+  constructor(private afAuth: AngularFireAuth, private router: Router) {}
+
+  ngOnInit() {
+    this.user = this.afAuth.authState;
+    this.userSub = this.user.subscribe(appUser => this.authChangeListener(appUser, this.router));
+    this.routeSub = this.router.events.subscribe(event => this.routerEventListener(event));
   }
 
-  ngOnInit() { }
-
   authChangeListener(appUser: any, router: Router): void {
-    if (appUser) {
-      this.showMenu = true;
-    }
+    appUser ? this.showMenu = true : this.showMenu = false;
+
     // Save user in sessionStorage
     sessionStorage.setItem ('currentUser', JSON.stringify(appUser));
     // Get the redirect URL from sessionStorage
@@ -43,6 +36,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.redirect = sessionStorage.getItem('redirectUrl');
     // Redirect the user
     router.navigate([this.redirect ? this.redirect : ''], { skipLocationChange: true });
+  }
+
+  routerEventListener(event): void {
+    if (event instanceof NavigationEnd ) {
+      this.setComponentTitle(this.router.url);
+    }
   }
 
   setComponentTitle(route: string): void {
@@ -56,34 +55,34 @@ export class AppComponent implements OnInit, OnDestroy {
           this.componentTitle = 'ACCET 93-97';
           break;
       }
-      case '/myprofile': {
-          this.componentTitle = 'My Profile';
-          break;
-      }
-      case '/profile': {
-          this.componentTitle = 'Profile';
-          break;
-      }
-      case '/batchmates': {
-          this.componentTitle = 'Batchmates';
-          break;
-      }
-      case '/social': {
-          this.componentTitle = 'Social Groups';
-          break;
-      }
-      case '/celebration': {
-          this.componentTitle = 'Birthdays & Anniversaries';
-          break;
-      }
-      case '/event': {
-          this.componentTitle = 'Events';
-          break;
-      }
-      case '/settings': {
-          this.componentTitle = 'Settings';
-          break;
-      }
+      // case '/myprofile': {
+      //     this.componentTitle = 'My Profile';
+      //     break;
+      // }
+      // case '/profile': {
+      //     this.componentTitle = 'Profile';
+      //     break;
+      // }
+      // case '/batchmates': {
+      //     this.componentTitle = 'Batchmates';
+      //     break;
+      // }
+      // case '/social': {
+      //     this.componentTitle = 'Social Groups';
+      //     break;
+      // }
+      // case '/celebration': {
+      //     this.componentTitle = 'Birthdays & Anniversaries';
+      //     break;
+      // }
+      // case '/event': {
+      //     this.componentTitle = 'Events';
+      //     break;
+      // }
+      // case '/settings': {
+      //     this.componentTitle = 'Settings';
+      //     break;
+      // }
       default: {
           this.componentTitle = 'ACCET 93-97';
           break;
@@ -91,16 +90,16 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  // signout(): void {
+  //   this.afAuth.auth.signOut();
+  //   sessionStorage.removeItem ('currentUser');
+  //   sessionStorage.removeItem ('redirectUrl');
+  //   this.showMenu = false;
+  //   this.router.navigate(['/signin'], { skipLocationChange: true });
+  // }
+
   ngOnDestroy() {
     this.userSub.unsubscribe && this.userSub.unsubscribe();
     this.routeSub.unsubscribe && this.routeSub.unsubscribe();
-  }
-
-  signout(): void {
-    this.afAuth.auth.signOut();
-    sessionStorage.removeItem ('currentUser');
-    sessionStorage.removeItem ('redirectUrl');
-    this.showMenu = false;
-    this.router.navigate(['/signin'], { skipLocationChange: true });
   }
 }

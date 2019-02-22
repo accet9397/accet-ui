@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { SigninComponent } from './signin.component';
 
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('SigninComponent', () => {
   let component: SigninComponent;
