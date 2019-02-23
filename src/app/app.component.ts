@@ -61,15 +61,15 @@ export class AppComponent implements OnInit, OnDestroy {
     window.location.href = 'mailto:accet.93.97@gmail.com?subject=Feedback on ACCET 93-97 App';
   }
 
-  // showHelp(): void {
-  //   this.dialog.open(HelpComponent, {
-  //     data: this.router.url
-  //   });
-  // }
+  showHelp(): void {
+    // this.dialog.open(HelpComponent, {
+    //   data: this.router.url
+    // });
+  }
 
-  // showAbout(): void {
-  //   this.dialog.open(AboutComponent);
-  // }
+  showAbout(): void {
+    // this.dialog.open(AboutComponent);
+  }
 
   signout(): void {
     this.afAuth.auth.signOut();
