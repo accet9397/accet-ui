@@ -1,6 +1,6 @@
 <div class=wrapper>
   <mat-toolbar color="primary" class=header>
-    <button mat-icon-button (click)="sidenav.toggle()" *ngIf="showMenu" id="menubutton">
+    <button mat-icon-button (click)="sidenav.toggle()" *ngIf="showMenu">
       <mat-icon>menu</mat-icon>
     </button>
     <span class=title-spacer>
@@ -16,15 +16,15 @@
       <mat-icon>settings</mat-icon>
       <span>Settings</span>
     </button>
-    <button mat-menu-item (click)="sendFeedback()">
+    <button mat-menu-item>
       <mat-icon>feedback</mat-icon>
       <span>Feedback</span>
     </button>
-    <button mat-menu-item (click)="showHelp()" disabled>
+    <button mat-menu-item>
       <mat-icon>help</mat-icon>
       <span>Help</span>
     </button>
-    <button mat-menu-item (click)="showAbout()" disabled>
+    <button mat-menu-item>
       <mat-icon>info</mat-icon>
       <span>About</span>
     </button>

@@ -57,19 +57,21 @@ export class AppComponent implements OnInit, OnDestroy {
     this.componentTitle = ComponentTitle.find(ctitle => ctitle.location === this.routeComp[0]).title;
   }
 
-  sendFeedback(): void {
-    window.location.href = 'mailto:accet.93.97@gmail.com?subject=Feedback on ACCET 93-97 App';
-  }
+  // sendFeedback(): void {
+  //   window.location.href = 'mailto:accet.93.97@gmail.com?subject=Feedback on ACCET 93-97 App';
+  // }
 
-  showHelp(): void {
-    // this.dialog.open(HelpComponent, {
-    //   data: this.router.url
-    // });
-  }
+  // showHelp(): void {
+  //   // this.dialog.open(HelpComponent, {
+  //   //   data: this.router.url
+  //   // });
+  //   console.log('showHelp works!');
+  // }
 
-  showAbout(): void {
-    // this.dialog.open(AboutComponent);
-  }
+  // showAbout(): void {
+  //   // this.dialog.open(AboutComponent);
+  //   console.log('showAbout works!');
+  // }
 
   signout(): void {
     this.afAuth.auth.signOut();

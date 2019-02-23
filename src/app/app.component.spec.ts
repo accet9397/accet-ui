@@ -7,6 +7,7 @@ import { ComponentTitle } from './app.component.title';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
+import { SigninComponent } from './signin/signin.component';
 
 const testDataValidUser = {
   displayName: 'Test User',
@@ -15,7 +16,12 @@ const testDataValidUser = {
 } as firebase.User;
 const testDataNullUser: firebase.User = null;
 
-const mockAngularFireAuth: any = { authState: of(testDataValidUser) };
+const mockAngularFireAuth = {
+  authState: of(testDataValidUser),
+  auth: {
+    signOut() {}
+  }
+};
 const mockAngularFireAuthNullUser: any = { authState: of(testDataNullUser) };
 
 describe('AppComponent with valid user', () => {
@@ -26,13 +32,16 @@ describe('AppComponent with valid user', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes([
+          {path: 'signin', component: SigninComponent}
+        ]),
         BrowserAnimationsModule,
         MatMenuModule,
         MatSidenavModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        SigninComponent
       ],
       providers: [
         { provide: ComponentTitle },
@@ -67,10 +76,14 @@ describe('AppComponent with valid user', () => {
     expect(app.showMenu).toEqual(true);
   });
 
-  it(`signout should have been called`, () => {
-    spyOn(app, 'signout');
+  it(`user should be signed out`, () => {
+    const afAuth = 'afAuth';
+    spyOn(app[afAuth].auth, 'signOut');
+    spyOn(sessionStorage, 'removeItem');
     dom.querySelector('#signout').click();
-    expect(app.signout).toHaveBeenCalled();
+    expect(app.showMenu).toEqual(false);
+    expect(sessionStorage.removeItem).toHaveBeenCalledTimes(2);
+    expect(app[afAuth].auth.signOut).toHaveBeenCalled();
   });
 
 });
