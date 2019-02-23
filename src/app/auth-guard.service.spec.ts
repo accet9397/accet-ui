@@ -1,6 +1,5 @@
-import { TestBed, async, inject, getTestBed } from '@angular/core/testing';
+import { TestBed, getTestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { Router } from '@angular/router';
 
 import { AuthGuardService } from './auth-guard.service';
