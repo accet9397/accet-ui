@@ -1,6 +1,9 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { MatMenuModule, MatSidenavModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ComponentTitle } from './app.component.title';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
@@ -18,16 +21,21 @@ const mockAngularFireAuthNullUser: any = { authState: of(testDataNullUser) };
 describe('AppComponent with valid user', () => {
   let app: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
+  let dom;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        BrowserAnimationsModule,
+        MatMenuModule,
+        MatSidenavModule
       ],
       declarations: [
         AppComponent
       ],
       providers: [
+        { provide: ComponentTitle },
         { provide: AngularFireAuth, useValue: mockAngularFireAuth }
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -37,10 +45,11 @@ describe('AppComponent with valid user', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.debugElement.componentInstance;
+    dom = fixture.nativeElement;
     fixture.detectChanges();
   });
 
-  it('should create the app', () => {
+  it(`should create the app`, () => {
     expect(app).toBeTruthy();
   });
 
@@ -58,6 +67,12 @@ describe('AppComponent with valid user', () => {
     expect(app.showMenu).toEqual(true);
   });
 
+  it(`signout should have been called`, () => {
+    spyOn(app, 'signout');
+    dom.querySelector('#signout').click();
+    expect(app.signout).toHaveBeenCalled();
+  });
+
 });
 
 describe('AppComponent with null user', () => {
@@ -67,7 +82,8 @@ describe('AppComponent with null user', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        MatMenuModule
       ],
       declarations: [
         AppComponent

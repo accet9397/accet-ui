@@ -1,5 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+// import { HelpComponent } from './help/help.component';
+// import { AboutComponent } from './about/about.component';
+// import { MatDialog } from '@angular/material';
+import { ComponentTitle } from './app.component.title';
 
 import { Observable, Subscription } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -10,7 +14,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  componentTitle = 'ACCET 93-97';
+  componentTitle = '';
   user: Observable<firebase.User>;
   userSub: Subscription;
   routeSub: Subscription;
@@ -18,12 +22,16 @@ export class AppComponent implements OnInit, OnDestroy {
   redirect: string;
   routeComp: string[];
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {}
+  constructor(
+    private afAuth: AngularFireAuth
+  // , private dialog: MatDialog
+  , private router: Router) {}
 
   ngOnInit() {
     this.user = this.afAuth.authState;
     this.userSub = this.user.subscribe(appUser => this.authChangeListener(appUser, this.router));
     this.routeSub = this.router.events.subscribe(event => this.routerEventListener(event));
+    this.setComponentTitle('--default--');
   }
 
   authChangeListener(appUser: any, router: Router): void {
@@ -38,7 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
     router.navigate([this.redirect ? this.redirect : ''], { skipLocationChange: true });
   }
 
-  routerEventListener(event): void {
+  routerEventListener(event: any): void {
     if (event instanceof NavigationEnd ) {
       this.setComponentTitle(this.router.url);
     }
@@ -46,57 +54,30 @@ export class AppComponent implements OnInit, OnDestroy {
 
   setComponentTitle(route: string): void {
     this.routeComp = route.split(';', 2);
-    switch (this.routeComp[0]) {
-      case '/signin': {
-          this.componentTitle = 'ACCET 93-97';
-          break;
-      }
-      case '/home': {
-          this.componentTitle = 'ACCET 93-97';
-          break;
-      }
-      // case '/myprofile': {
-      //     this.componentTitle = 'My Profile';
-      //     break;
-      // }
-      // case '/profile': {
-      //     this.componentTitle = 'Profile';
-      //     break;
-      // }
-      // case '/batchmates': {
-      //     this.componentTitle = 'Batchmates';
-      //     break;
-      // }
-      // case '/social': {
-      //     this.componentTitle = 'Social Groups';
-      //     break;
-      // }
-      // case '/celebration': {
-      //     this.componentTitle = 'Birthdays & Anniversaries';
-      //     break;
-      // }
-      // case '/event': {
-      //     this.componentTitle = 'Events';
-      //     break;
-      // }
-      // case '/settings': {
-      //     this.componentTitle = 'Settings';
-      //     break;
-      // }
-      default: {
-          this.componentTitle = 'ACCET 93-97';
-          break;
-      }
-    }
+    this.componentTitle = ComponentTitle.find(ctitle => ctitle.location === this.routeComp[0]).title;
   }
 
-  // signout(): void {
-  //   this.afAuth.auth.signOut();
-  //   sessionStorage.removeItem ('currentUser');
-  //   sessionStorage.removeItem ('redirectUrl');
-  //   this.showMenu = false;
-  //   this.router.navigate(['/signin'], { skipLocationChange: true });
+  sendFeedback(): void {
+    window.location.href = 'mailto:accet.93.97@gmail.com?subject=Feedback on ACCET 93-97 App';
+  }
+
+  // showHelp(): void {
+  //   this.dialog.open(HelpComponent, {
+  //     data: this.router.url
+  //   });
   // }
+
+  // showAbout(): void {
+  //   this.dialog.open(AboutComponent);
+  // }
+
+  signout(): void {
+    this.afAuth.auth.signOut();
+    sessionStorage.removeItem ('currentUser');
+    sessionStorage.removeItem ('redirectUrl');
+    this.showMenu = false;
+    this.router.navigate(['/signin'], { skipLocationChange: true });
+  }
 
   ngOnDestroy() {
     this.userSub.unsubscribe && this.userSub.unsubscribe();

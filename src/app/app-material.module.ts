@@ -3,6 +3,8 @@ import {
   MatButtonModule,
   MatCardModule,
   MatIconModule,
+  MatListModule,
+  MatMenuModule,
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
@@ -13,6 +15,8 @@ import { CdkTableModule } from '@angular/cdk/table';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
+    MatListModule,
+    MatMenuModule,
     MatSidenavModule,
     MatToolbarModule,
     CdkTableModule
