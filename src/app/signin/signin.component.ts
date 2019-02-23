@@ -13,12 +13,4 @@ export class SigninComponent implements OnInit {
   ngOnInit() {
   }
 
-  successCallback(data: FirebaseUISignInSuccessWithAuthResult) {
-    console.log('successCallback', data);
-  }
-
-  errorCallback(data: any) {
-
-  }
-
 }
