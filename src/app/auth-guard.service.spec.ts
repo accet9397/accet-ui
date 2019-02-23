@@ -8,9 +8,9 @@ import { AuthGuardService } from './auth-guard.service';
 describe('AuthGuardService', () => {
   let injector: TestBed;
   let guard: AuthGuardService;
-  let routeMock: any = { snapshot: {}};
-  let routeStateMock: any = { snapshot: {}, url: '/home'};
-  let routerMock = {navigate: jasmine.createSpy('navigate')};
+  const routeMock: any = { snapshot: {}};
+  const routeStateMock: any = { snapshot: {}, url: '/home'};
+  const routerMock = {navigate: jasmine.createSpy('navigate')};
 
   beforeEach(() => {
     TestBed.configureTestingModule({
