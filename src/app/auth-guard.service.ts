@@ -5,13 +5,14 @@ import { CanActivate
        , RouterStateSnapshot
        , Route
        } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable()
 
 export class AuthGuardService implements CanActivate {
       constructor(private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     // Store the attempted URL for redirecting
     sessionStorage.setItem ('redirectUrl', state.url);
 

@@ -7,7 +7,7 @@ import { ComponentTitle } from './app.component.title';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
-import { SigninComponent } from './signin/signin.component';
+import { SigninComponent } from './mock.component';
 
 const testDataValidUser = {
   displayName: 'Test User',
