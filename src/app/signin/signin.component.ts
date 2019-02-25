@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseUISignInSuccessWithAuthResult } from 'firebaseui-angular';
 
 @Component({
   selector: 'app-signin',
