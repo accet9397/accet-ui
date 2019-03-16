@@ -1,0 +1,29 @@
+.tab-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-filter {
+  min-height: 32px;
+  max-height: 32px;
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+  font-size: 20px;
+}
+
+.component-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-column-name {
+  flex: 0 0 50%;
+}
+
+.mat-column-deptName {
+  flex: 0 0 20%;
+}
+
+.mat-column-contacts {
+  flex: 0 0 30%;
+}
