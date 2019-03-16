@@ -21,6 +21,8 @@ export class BatchmatesComponent implements OnInit, OnDestroy {
     {value: '3', viewValue: 'EEE'},
     {value: '4', viewValue: 'ECE'}
   ];
+
+  dataSub: Subscription;
   filterText = '';
   filterSub: Subscription;
   selectedDept = '0';
@@ -34,7 +36,7 @@ export class BatchmatesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoadingResults = true;
-    this.dataService.getBatchmates().subscribe( data => {
+    this.dataSub = this.dataService.getBatchmates().subscribe( data => {
       this.dataSource.data = data;
       this.isLoadingResults = false;
     });
@@ -49,6 +51,7 @@ export class BatchmatesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.dataSub.unsubscribe && this.dataSub.unsubscribe();
     this.filterSub.unsubscribe && this.filterSub.unsubscribe();
   }
 
