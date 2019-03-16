@@ -1,0 +1,55 @@
+<div class="tab-container">
+  <div class="tab-filter">
+    <mat-icon *ngIf='!filterText'>filter_list</mat-icon>
+    <button mat-icon-button *ngIf='filterText' (click)="clearFilterText()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <mat-form-field floatPlaceholder="never">
+      <input matInput #filter placeholder="filter name" [(ngModel)]="filterText" name="filterText">
+    </mat-form-field>
+    <span class="component-spacer"></span>
+    <mat-form-field>
+      <mat-select placeholder="Department" [(ngModel)]="selectedDept" name="dept">
+        <mat-option *ngFor="let dept of depts" [value]="dept.value">
+          {{dept.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
+  <mat-table #table [dataSource]="dataSource">
+
+    <ng-container cdkColumnDef="name">
+      <mat-header-cell *cdkHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *cdkCellDef="let row" (click)="viewProfile(row.$key)"> {{row.firstName}} {{row.lastName}} </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="deptName">
+      <mat-header-cell *cdkHeaderCellDef> Dept. </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.dept}} </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="contacts">
+      <mat-header-cell *cdkHeaderCellDef> Contacts </mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <button mat-icon-button *ngIf='row.phone' (click)="callPhone(row.phone)">
+          <mat-icon>phone</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf='row.email' (click)="sendEmail(row.email)">
+          <mat-icon>email</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  
+  <div *ngIf="isLoadingResults" align="center">
+    <mat-spinner></mat-spinner>
+  </div>
+<!--
+  <mat-paginator #paginator [length]="224" [pageIndex]="0" [pageSize]="10"  [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+-->  
+</div>
