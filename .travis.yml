@@ -1,7 +1,7 @@
 sudo: required
 dist: trusty
 addons:
-  chrome: 75
+  firefox: "49.0"
   sonarcloud:
     organization: "accet9397"
     token:
