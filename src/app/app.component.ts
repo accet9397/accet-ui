@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.user = this.afAuth.authState;
     this.userSub = this.user.subscribe(appUser => this.authChangeListener(appUser, this.router));
     this.routeSub = this.router.events.subscribe(event => this.routerEventListener(event));
-    this.setComponentTitle('--default--');
+    this.setComponentTitle('/');
   }
 
   authChangeListener(appUser: any, router: Router): void {

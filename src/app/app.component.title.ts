@@ -36,7 +36,7 @@ export const ComponentTitle = [
     title: 'Settings'
   },
   {
-    location: '--default--',
+    location: '/',
     title: 'ACCET 93-97'
   }
 ];
