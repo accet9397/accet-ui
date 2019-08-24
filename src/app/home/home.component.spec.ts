@@ -17,39 +17,39 @@ describe('HomeComponent', () => {
   }));
 
   beforeEach(() => {
-    let store = {
-      currentUser: {
-        displayName: ''
-      }
-    };
-    store.currentUser.displayName = testData;
+    // let store = {
+    //   currentUser: {
+    //     displayName: ''
+    //   }
+    // };
+    // store.currentUser.displayName = testData;
 
-    const mockSessionStorage = {
-      getItem: (key: string): string => {
-        return key in store ? JSON.stringify(store[key]) : null;
-      },
-      setItem: (key: string, value: string) => {
-        store[key] = `${JSON.parse(value)}`;
-      },
-      removeItem: (key: string) => {
-        delete store[key];
-      },
-      clear: () => {
-        store = {
-          currentUser: {
-            displayName: ''
-          }
-        };
-      }
-    };
-    spyOn(sessionStorage, 'getItem')
-    .and.callFake(mockSessionStorage.getItem);
-    spyOn(sessionStorage, 'setItem')
-      .and.callFake(mockSessionStorage.setItem);
-    spyOn(sessionStorage, 'removeItem')
-      .and.callFake(mockSessionStorage.removeItem);
-    spyOn(sessionStorage, 'clear')
-      .and.callFake(mockSessionStorage.clear);
+    // const mockSessionStorage = {
+    //   getItem: (key: string): string => {
+    //     return key in store ? JSON.stringify(store[key]) : null;
+    //   },
+    //   setItem: (key: string, value: string) => {
+    //     store[key] = `${JSON.parse(value)}`;
+    //   },
+    //   removeItem: (key: string) => {
+    //     delete store[key];
+    //   },
+    //   clear: () => {
+    //     store = {
+    //       currentUser: {
+    //         displayName: ''
+    //       }
+    //     };
+    //   }
+    // };
+    // spyOn(sessionStorage, 'getItem')
+    // .and.callFake(mockSessionStorage.getItem);
+    // spyOn(sessionStorage, 'setItem')
+    //   .and.callFake(mockSessionStorage.setItem);
+    // spyOn(sessionStorage, 'removeItem')
+    //   .and.callFake(mockSessionStorage.removeItem);
+    // spyOn(sessionStorage, 'clear')
+    //   .and.callFake(mockSessionStorage.clear);
 
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
@@ -60,8 +60,8 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render welcome message on the toolbar', () => {
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('mat-toolbar').textContent).toContain('Welcome ' + testData);
-  });
+  // it('should render welcome message on the toolbar', () => {
+  //   const compiled = fixture.debugElement.nativeElement;
+  //   expect(compiled.querySelector('mat-toolbar').textContent).toContain('Welcome ' + testData);
+  // });
 });
