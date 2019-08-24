@@ -63,5 +63,5 @@ describe('HomeComponent', () => {
   it('should render welcome message on the toolbar', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('mat-toolbar').textContent).toContain('Welcome ' + testData);
-  // });
+  });
 });
