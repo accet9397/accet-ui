@@ -1,36 +1,61 @@
 <div class="tab-container">
+<!--   
   <div class="tab-filter">
+  
     <mat-icon *ngIf='!filterText'>filter_list</mat-icon>
     <button mat-icon-button *ngIf='filterText' (click)="clearFilterText()">
       <mat-icon>clear</mat-icon>
     </button>
-    <mat-form-field floatPlaceholder="never">
+    
+    <mat-form-field floatLabel="never">
       <input matInput #filter placeholder="filter name" [(ngModel)]="filterText" name="filterText">
     </mat-form-field>
+    
     <span class="component-spacer"></span>
     <mat-form-field>
-      <mat-select placeholder="Department" [(ngModel)]="selectedDept" name="dept">
+      <mat-select name="dept" [(value)]="selectedDept">
         <mat-option *ngFor="let dept of depts" [value]="dept.value">
           {{dept.viewValue}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-  </div>
   
+  </div>
+ -->
   <mat-table #table [dataSource]="dataSource">
 
     <ng-container cdkColumnDef="name">
-      <mat-header-cell *cdkHeaderCellDef> Name </mat-header-cell>
+      <mat-header-cell *cdkHeaderCellDef class="filter">
+        <mat-icon *ngIf='!filterText'>filter_list</mat-icon>
+        <button mat-icon-button *ngIf='filterText' (click)="clearFilterText()">
+            <mat-icon>clear</mat-icon>
+        </button>
+        <mat-form-field floatLabel="never">
+          <input matInput #filter placeholder="Name" [(ngModel)]="filterText" name="filterText">
+        </mat-form-field>
+      </mat-header-cell>
       <mat-cell *cdkCellDef="let row" (click)="viewProfile(row.$key)"> {{row.firstName}} {{row.lastName}} </mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="deptName">
-      <mat-header-cell *cdkHeaderCellDef> Dept. </mat-header-cell>
+      <mat-header-cell *cdkHeaderCellDef class="filter">
+        <mat-icon *ngIf='!selectedDept'>filter_list</mat-icon>
+        <button mat-icon-button *ngIf='selectedDept' (click)="clearSelectedDept()">
+            <mat-icon>clear</mat-icon>
+        </button>
+        <mat-form-field>
+          <mat-select name="dept" [(value)]="selectedDept">
+            <mat-option *ngFor="let dept of depts" [value]="dept.value">
+              {{dept.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-header-cell>
       <mat-cell *cdkCellDef="let row"> {{row.dept}} </mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="contacts">
-      <mat-header-cell *cdkHeaderCellDef> Contacts </mat-header-cell>
+      <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
       <mat-cell *cdkCellDef="let row">
         <button mat-icon-button *ngIf='row.phone' (click)="callPhone(row.phone)">
           <mat-icon>phone</mat-icon>
@@ -45,7 +70,7 @@
     <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
   
-  <div *ngIf="isLoadingResults" align="center">
+  <div *ngIf="isLoadingResults" class="spinner">
     <mat-spinner></mat-spinner>
   </div>
 <!--

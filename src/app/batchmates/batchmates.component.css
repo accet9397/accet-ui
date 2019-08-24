@@ -2,19 +2,29 @@
   display: flex;
   flex-direction: column;
 }
-
+/* 
 .tab-filter {
   min-height: 32px;
   max-height: 32px;
   display: flex;
   align-items: center;
   padding-left: 24px;
-  font-size: 20px;
+  font-size: 15px;
+}
+ */
+.filter {
+  font-size: 15px;
 }
 
-.component-spacer {
-  flex: 1 1 auto;
+.spinner {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
+
+/* .component-spacer {
+  flex: 1 1 auto;
+} */
 
 .mat-column-name {
   flex: 0 0 50%;

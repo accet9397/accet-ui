@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSelect } from '@angular/material';
 
@@ -12,22 +12,26 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
   templateUrl: './batchmates.component.html',
   styleUrls: ['./batchmates.component.css']
 })
-export class BatchmatesComponent implements OnInit, OnDestroy {
+export class BatchmatesComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns = ['name', 'deptName', 'contacts'];
   depts = [
-    {value: '0', viewValue: 'All'},
-    {value: '1', viewValue: 'Civil'},
-    {value: '2', viewValue: 'Mech'},
-    {value: '3', viewValue: 'EEE'},
-    {value: '4', viewValue: 'ECE'}
+    {value: '', viewValue: 'All Dept.'},
+    {value: 'Civil', viewValue: 'Civil'},
+    {value: 'Mech', viewValue: 'Mech'},
+    {value: 'EEE', viewValue: 'EEE'},
+    {value: 'ECE', viewValue: 'ECE'}
   ];
-
+  selectedDept = '';
   dataSub: Subscription;
   filterText = '';
-  filterSub: Subscription;
-  selectedDept = '0';
+  filterNameSub: Subscription;
+  filterDeptSub: Subscription;
   dataSource = new MatTableDataSource();
   isLoadingResults = true;
+  filterValues = {
+    name: '',
+    dept: ''
+  };
 
   @ViewChild('filter') filter: ElementRef;
   @ViewChild(MatSelect) selector: MatSelect;
@@ -40,34 +44,61 @@ export class BatchmatesComponent implements OnInit, OnDestroy {
       this.dataSource.data = data;
       this.isLoadingResults = false;
     });
+    this.dataSource.filterPredicate = this.batchmatesFilter();
+  }
 
-    this.filterSub = fromEvent(this.filter.nativeElement, 'keyup')
+  ngAfterViewInit() {
+    this.filterNameSub = fromEvent(this.filter.nativeElement, 'keyup')
     .pipe(debounceTime(150))
     .pipe(distinctUntilChanged())
     .subscribe(() => {
       if (!this.dataSource) { return; }
-      this.dataSource.filter = this.filter.nativeElement.value;
+      this.filterValues.name = this.filter.nativeElement.value;
+      this.dataSource.filter = JSON.stringify(this.filterValues);
     });
+
+    this.filterDeptSub = this.selector.valueChange
+      .subscribe(() => {
+      if (!this.dataSource) { return; }
+      this.filterValues.dept = this.selector.value;
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+      });
   }
 
   ngOnDestroy() {
     this.dataSub.unsubscribe && this.dataSub.unsubscribe();
-    this.filterSub.unsubscribe && this.filterSub.unsubscribe();
+    this.filterNameSub.unsubscribe && this.filterNameSub.unsubscribe();
+    this.filterDeptSub.unsubscribe && this.filterDeptSub.unsubscribe();
   }
 
-  sendEmail(email) {
+  batchmatesFilter(): (data: any, filter: string) => boolean {
+    return (data, filter): boolean => {
+      const searchTerms = JSON.parse(filter);
+      return (data.firstName + data.lastName).toLowerCase().indexOf(searchTerms.name.toLowerCase()) !== -1
+      && (data.dept === searchTerms.dept || searchTerms.dept === '');
+    };
+  }
+
+  sendEmail(email: string) {
     console.log('write to' + email);
     // window.location.href = 'mailto:' + email;
   }
 
-  callPhone(phone) {
+  callPhone(phone: string) {
     console.log('calling' + phone);
     // window.location.href = 'tel:' + phone;
   }
 
   clearFilterText() {
     this.filterText = '';
-    this.dataSource.filter = '';
+    this.filterValues.name = '';
+    this.dataSource.filter = JSON.stringify(this.filterValues);
+  }
+
+  clearSelectedDept() {
+    this.selectedDept = '';
+    this.filterValues.dept = '';
+    this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 
   viewProfile(key: string) {

@@ -11,6 +11,9 @@
 # service accounts
 /service
 
+# testcafe pilot
+/tests
+
 # profiling files
 chrome-profiler-events.json
 speed-measure-plugin.json
