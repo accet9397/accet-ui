@@ -17,7 +17,7 @@ describe('HomeComponent', () => {
   }));
 
   beforeEach(() => {
-    let store = {
+    const store = {
       currentUser: {
         displayName: ''
       }
